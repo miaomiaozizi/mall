@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>家居商城-详情</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/res/static/css/index.css">
+</head>
+<body>
+
+<div class="house-header">
+  <div class="layui-container">
+    <div class="house-nav">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="/toLogin" id="userName">登录</a>
+         <a href="/user">我的订单</a>
+        <a href="">在线客服</a>
+      </span>
+      <span class="layui-breadcrumb house-breadcrumb-icon" lay-separator=" ">
+        <a id="search"><i class="layui-icon layui-icon-house-find"></i></a>
+        <a href="login.html"><i class="layui-icon layui-icon-username"></i></a>
+        <a href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i></a>
+      </span>
+    </div> 
+    <div class="house-banner layui-form">
+      <a class="banner" href="/">
+        <img src="/res/static/img/banner.png" alt="家居商城">
+      </a>
+      <div class="layui-input-inline">
+        <input type="text" placeholder="搜索好物" class="layui-input"><i class="layui-icon layui-icon-house-find"></i>
+      </div>
+      <a class="shop" href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge" id="shopNum">1</span></a>
+    </div>
+    <ul class="layui-nav close">
+      <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=1">居家用品</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=2">小家电</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=3">洗护</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=4">厨具</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=5">日用品</a></li>
+    </ul>
+    <button id="switch">
+      <span></span><span class="second"></span><span class="third"></span>
+    </button>
+  </div>
+</div>
+
+<div class="layui-container house-detail">
+  <p class="title"><a href="/">首页</a> &gt; <a href="list.html">家居用品</a> &gt; <span>产品详情</span></p>
+  <div class="layui-row price">
+    <div class="layui-col-sm6">
+      <div class="intro-img"><img src="/res/static/img/goods_img1.jpg" th:src="'showImage?path='+${goodsImgs.get(0).imagesUrl}" ></div><ul class="thumb">
+        <li th:each="goodsImg:${goodsImgs}"><img src="/res/static/img/goods_img2.jpg" th:src="'showImage?path='+${goodsImg.imagesUrl}"></li>
+
+      </ul>
+    </div>
+    <div class="layui-col-sm6 shopChoose">
+      <div class="title"><p ><span class="layui-badge" th:if="${goods.isNew==1}" >新品</span ><spqn th:text="${goods.goodsName}">轻奢吊灯现代极简创意灯具</spqn></p>好评率  <span>90%</span></div>
+      <p><span>￥<big><b th:text="${goods.shopPrice.doubleValue()}">199</b></big></span>原价￥<big><del th:text="${goods.marketPrice.doubleValue()}">399</del></big></p>
+      <dl th:each="key:${goods.goodsAttr.keySet()}" >
+        <dt th:text="${key}">颜色</dt>
+        <dd th:each="value:${goods.goodsAttr.get(key)}" th:text="${value}" th:class=" ${0==valueStat.index}? 'active': ''" >白色</dd>
+      </dl>
+      <form class="number layui-form" id="goodsForm" action="/addOrder">
+        <label>数量</label>
+        <div class="layui-input-inline btn-input">
+          <button type="button" class="layui-btn layui-btn-primary sup">-</button>
+          <input type="text" class="layui-input" id="number" name="goodslist[0].number">
+          <input type="hidden" name="goodslist[0].id" id="goodsId" >
+          <button type="button" class="layui-btn layui-btn-primary sub">+</button>
+        </div>
+        <p class="inputTips">已超出库存数量！</p>
+      </form>
+      <div class="shopBtn">
+        <button class="layui-btn layui-btn-primary sale" id="subBut">立即购买</button>
+        <button class="layui-btn shop" id="addShop"><i class="layui-icon layui-icon-house-shop" ></i>加入购物车</button>
+        <button class="layui-btn layui-btn-primary collect"><i class="layui-icon layui-icon-rate" id="collect"></i>收藏</button>
+      </div>
+    </div>
+  </div>
+  <div class="layui-row layui-col-space30">
+    <div class="layui-col-sm8 detailTab">
+      <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+          <li class="layui-this">详情</li>
+          <li>评论 <span th:text="'('+${goods.commentCount}+')'">(120)</span></li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">
+            <img src="/res/static/img/goods_img3.jpg" th:each="goodsDetail:${goodsDetails}" th:src="'showImage?path='+${goodsDetail.detailsImgUrl}">
+          </div>
+          <div class="layui-tab-item">
+            <div class="comment">
+              <ul>
+                <li th:each="comment:${goodsComment}">
+                  <div class="img"><img src="/res/static/img/person.png"></div>
+                  <p class="txt" th:text="${comment.content}">质量还可以！纯棉的，盖着挺舒服的，对皮肤也好。</p>
+                  <p class="time" th:text="${#dates.format(comment.createTime, 'yyyy年MM月dd日 HH:mm')}" >2018年05月02日 11:20</p>
+                </li>
+              </ul>
+              <div id="detailList"></div>
+              </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <div class="layui-col-sm4 detailCom">
+      <p class="title">热销推荐</p>
+      <ul class="detailCom-content hot-sell" th:each="hot:${hotGoods}">
+        <li ><a class="text">
+          <div><img src="/res/static/img/goods_img6.jpg" th:src="'showImage?path='+${hot.goodsImg}"></div>
+          <p th:text="${hot.goodsName}">森系小清新四件套</p>
+          <p class="price" th:text="'￥'+${hot.shopPrice}">￥200</p>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="house-footer">
+  <div class="layui-container">
+    <div class="intro">
+      <span class="first"><i class="layui-icon layui-icon-house-shield"></i>7天无理由退换货</span>
+      <span class="second"><i class="layui-icon layui-icon-house-car"></i>满99元全场包邮</span>
+      <span class="third"><i class="layui-icon layui-icon-house-diamond"></i>100%品质保证</span>
+      <span class="last"><i class="layui-icon layui-icon-house-tel"></i>客服400-2888-966</span>
+    </div>
+    <div class="about">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="/html/about.html">关于我们</a>
+        <a href="/html/about.html">帮助中心</a>
+        <a href="/html/about.html">售后服务</a>
+        <a href="/html/about.html">配送服务</a>
+        <a href="/html/about.html">关于货源</a>
+      </span>
+      <p>家居商城版权所有 &copy; 2012-2020</p>
+    </div>   
+  </div>
+</div>
+
+<script src="/res/layui/layui.js"></script>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>
+  layui.config({
+    base: '../res/static/js/' 
+  }).use('house');
+  layui.use(['jquery'],function () {
+    var $=layui.jquery;
+    $.post('/getUser',function (user) {
+      if (user != "") {
+        $('#userName').text(user.userName);
+        $('#userName').attr('href','/user');
+      }
+    });
+    //获取购物车初始数量
+    $.post('getShopNumber',function (number) {
+      $('#shopNum').text(number);
+    });
+    //立即购买
+    $("#subBut").click(function () {
+      var goodsId=[[${goods.id}]];
+      $('#goodsId').val(goodsId);
+      $('#goodsForm').submit();
+    });
+    //添加购物车
+    $('#addShop').click(function () {
+      var goodsId=[[${goods.id}]];
+      $('#goodsId').val(goodsId);
+      var data=$('#goodsForm').serializeArray();
+      $.post("/addShop",data,function (res) {
+        if (res.code==200){
+          var oldNum = $('#shopNum').text();
+          var newNum=parseInt(oldNum)+1;
+          $('#shopNum').text(newNum);
+        } else {
+          window.location.href="/login";
+        }
+      });
+    });
+  });
+</script>
+  
+</body>
+</html>

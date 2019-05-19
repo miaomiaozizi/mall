@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zi.mall.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.zi.mall.domain.Order">
+    <id column="orderid" jdbcType="VARCHAR" property="orderid" />
+    <result column="oddno" jdbcType="VARCHAR" property="oddno" />
+    <result column="timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="ship_id" jdbcType="VARCHAR" property="shipId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    orderid, oddno, timestamp, goods_id, avatar, number, price, state, user_id, address_id, 
+    ship_id
+  </sql>
+  <select id="selectByExample" parameterType="com.zi.mall.domain.OrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_order
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zi.mall.domain.OrderExample">
+    delete from t_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zi.mall.domain.Order">
+    insert into t_order (orderid, oddno, timestamp, 
+      goods_id, avatar, number, 
+      price, state, user_id, 
+      address_id, ship_id)
+    values (#{orderid,jdbcType=VARCHAR}, #{oddno,jdbcType=VARCHAR}, #{timestamp,jdbcType=TIMESTAMP}, 
+      #{goodsId,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{state,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{addressId,jdbcType=INTEGER}, #{shipId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zi.mall.domain.Order">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="oddno != null">
+        oddno,
+      </if>
+      <if test="timestamp != null">
+        timestamp,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="shipId != null">
+        ship_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="oddno != null">
+        #{oddno,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="shipId != null">
+        #{shipId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zi.mall.domain.OrderExample" resultType="java.lang.Long">
+    select count(*) from t_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_order
+    <set>
+      <if test="record.orderid != null">
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oddno != null">
+        oddno = #{record.oddno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timestamp != null">
+        timestamp = #{record.timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressId != null">
+        address_id = #{record.addressId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shipId != null">
+        ship_id = #{record.shipId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_order
+    set orderid = #{record.orderid,jdbcType=VARCHAR},
+      oddno = #{record.oddno,jdbcType=VARCHAR},
+      timestamp = #{record.timestamp,jdbcType=TIMESTAMP},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      state = #{record.state,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      address_id = #{record.addressId,jdbcType=INTEGER},
+      ship_id = #{record.shipId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zi.mall.domain.Order">
+    update t_order
+    <set>
+      <if test="oddno != null">
+        oddno = #{oddno,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="shipId != null">
+        ship_id = #{shipId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zi.mall.domain.Order">
+    update t_order
+    set oddno = #{oddno,jdbcType=VARCHAR},
+      timestamp = #{timestamp,jdbcType=TIMESTAMP},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      state = #{state,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=INTEGER},
+      ship_id = #{shipId,jdbcType=VARCHAR}
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <insert id="insertOrderGoods">
+      insert into t_order_goods values(null ,#{param1},#{param2})
+    </insert>
+  <select id="selectOrder" resultMap="BaseResultMap" >
+    select * from t_order
+    <where>
+      <if test="state !=null">
+        and state=#{state}
+      </if>
+      <if test="oddno !=null">
+        and oddno like concat("%",#{oddno},"%")
+      </if>
+      <if test="beginDate !=null">
+        and timestamp >=#{beginDate}
+      </if>
+      <if test="engDate !=null">
+        and timestamp &lt;=#{engDate}
+      </if>
+      <if test="price !=null">
+        and price =#{price}
+      </if>
+    </where>
+  </select>
+</mapper>
