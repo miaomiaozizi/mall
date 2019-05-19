@@ -16,6 +16,9 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+  <resultMap id="GoodsVo"  type="com.zi.mall.vo.GoodsVo" extends="BaseResultMap">
+    <result column="cat_name" jdbcType="VARCHAR" property="catName"/>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -128,7 +131,7 @@
       #{salesSum,jdbcType=INTEGER}, #{isNew,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zi.mall.domain.Goods">
+  <insert id="insertSelective"  parameterType="com.zi.mall.domain.Goods">
     insert into t_goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -212,6 +215,9 @@
         #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
+    <selectKey keyProperty="id" resultType="java.lang.Integer">
+      select LAST_INSERT_ID() as id
+    </selectKey>
   </insert>
   <select id="countByExample" parameterType="com.zi.mall.domain.GoodsExample" resultType="java.lang.Long">
     select count(*) from t_goods
@@ -224,6 +230,23 @@
     </select>
   <select id="selectNewGoods" resultMap="BaseResultMap">
     select id,goods_name,shop_price,goods_img from t_goods where store_count>0 and is_new=1 order by create_time desc limit 0,#{sum}
+  </select>
+  <select id="selectGoodsList" resultMap="GoodsVo">
+    select  t_goods.*,t_content_category.category_name cat_name from t_goods join t_content_category on cat_id=t_content_category.id
+    <where>
+      <if test="goodsName !=null">
+        and goods_name like  concat("%",#{goodsName},"%")
+      </if>
+      <if test="catId !=null">
+        and cat_id =#{catId}
+      </if>
+      <if test="shopPrice">
+        and shop_price =#{shopPrice}
+      </if>
+      <if test="costPrice!=null">
+        and cost_price=#{costPrice}
+      </if>
+    </where>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update t_goods

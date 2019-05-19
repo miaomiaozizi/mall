@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>支付等待确认页面</title>
+</head>
+<body>
+您的订单等待确认中。。。。。。。。。。。
+<script src="/res/layui/layui.js"></script>
+<script>
+    layui.use(['jquery'],function () {
+        $=layui.jquery;
+        window.setInterval(function () {
+            var orderid=[[${payVo.orderid}]]
+            $.get("/queryOrder?orderid="+orderid,function (res) {
+                if (res.code == 200) {
+                    window.location.href="/user";
+                }
+            });
+        },2000);
+    });
+</script>
+</body>
+</html>

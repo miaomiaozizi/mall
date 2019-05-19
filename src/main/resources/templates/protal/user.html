@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>家居商城-个人中心</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="../static/res/layui/css/layui.css">
-  <link rel="stylesheet" href="../static/res/static/css/index.css">
+  <link rel="stylesheet" href="/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/res/static/css/index.css">
 </head>
 <body class="user">
 
@@ -13,32 +13,32 @@
   <div class="layui-container">
     <div class="house-nav">
       <span class="layui-breadcrumb" lay-separator="|">
-        <a href="login.html">登录</a>
-        <a href="">我的订单</a>
+        <a href="/toLogin" id="userName">登录</a>
+       <a href="/user">我的订单</a>
         <a href="">在线客服</a>
       </span>
       <span class="layui-breadcrumb house-breadcrumb-icon" lay-separator=" ">
         <a id="search"><i class="layui-icon layui-icon-house-find"></i></a>
         <a href="login.html"><i class="layui-icon layui-icon-username"></i></a>
-        <a href="../static/html/usershop.html"><i class="layui-icon layui-icon-house-shop"></i></a>
+        <a href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i></a>
       </span>
     </div> 
     <div class="house-banner layui-form">
-      <a class="banner" href="index.html">
-        <img src="../static/res/static/img/banner.png" alt="家居商城">
+      <a class="banner" href="/">
+        <img src="/res/static/img/banner.png" alt="家居商城">
       </a>
       <div class="layui-input-inline">
         <input type="text" placeholder="搜索好物" class="layui-input"><i class="layui-icon layui-icon-house-find"></i>
       </div>
-      <a class="shop" href="../static/html/usershop.html"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge">1</span></a>
+      <a class="shop" href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge">1</span></a>
     </div>
     <ul class="layui-nav close">
-      <li class="layui-nav-item layui-this"><a href="index.html">首页</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">居家用品</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">小家电</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">洗护</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">厨具</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">日用品</a></li>
+      <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=1">居家用品</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=2">小家电</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=3">洗护</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=4">厨具</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=5">日用品</a></li>
     </ul>
     <button id="switch">
       <span></span><span class="second"></span><span class="third"></span>
@@ -51,10 +51,10 @@
     <p class="layui-hide-xs title">首页 &gt; <span>个人中心</span></p>
     <div class="layui-col-sm2">
       <ul class="user-list">
-        <li class="active"><a href="user.html">个人中心</a></li>
-        <li><a href="">消息中心</a></li>
-        <li><a href="../static/html/useradd.html">地址管理</a></li>
-        <li><a href="../static/html/usercol.html">我的收藏</a></li>
+        <li class="active"><a href="/user">个人中心</a></li>
+<!--        <li><a href="">消息中心</a></li>-->
+        <li><a href="/useradd">地址管理</a></li>
+        <li><a href="usercol.html">我的收藏</a></li>
         <li><a href="">优惠券</a></li>
         <li><a href="">服务中心</a></li>
       </ul>
@@ -62,7 +62,7 @@
     <div class="layui-col-sm10">
       <div class="user-person">
         <div class="person">
-          <img src="../static/res/static/img/person.png">
+          <img src="/res/static/img/person.png">
           <div class="name">
             <p>小明1988</p>
             <span><i>VIP2</i></span>
@@ -109,11 +109,11 @@
     </div>
     <div class="about">
       <span class="layui-breadcrumb" lay-separator="|">
-        <a href="../static/html/about.html">关于我们</a>
-        <a href="../static/html/about.html">帮助中心</a>
-        <a href="../static/html/about.html">售后服务</a>
-        <a href="../static/html/about.html">配送服务</a>
-        <a href="../static/html/about.html">关于货源</a>
+        <a href="/html/about.html">关于我们</a>
+        <a href="/html/about.html">帮助中心</a>
+        <a href="/html/about.html">售后服务</a>
+        <a href="/html/about.html">配送服务</a>
+        <a href="/html/about.html">关于货源</a>
       </span>
       <p>家居商城版权所有 &copy; 2012-2020</p>
     </div>   
@@ -123,12 +123,12 @@
 <script type="text/html" id="orderTpl">
   <div style="text-align: left; display: inline-block; vertical-align: middle;">
     <p>订单号：{{d.orderid}}</p>
-    <p>交易单号：{{d.orderid}}</p>
+    <p>交易单号：{{d.oddno}}</p>
     <p>交易时间：{{d.timestamp}}</p>
   </div>
 </script>
 <script type="text/html" id="imgTpl">
-  <img src="{{d.avatar}}">
+  <img src="showImage?path={{d.avatar}}">
 </script>
 <script type="text/html" id="priceTpl">
   <div style="display: inline-block; vertical-align: middle;">
@@ -154,7 +154,7 @@
   </div>
 </script>
 
-<script src="../static/res/layui/layui.js"></script>
+<script src="/res/layui/layui.js"></script>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
   <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -163,7 +163,20 @@
 <script>
   layui.config({
     base: '../res/static/js/' 
-  }).use('house'); 
+  }).use('house');
+  layui.use(['jquery'],function () {
+    $=layui.jquery;
+    //获取购物车初始数量
+    $.post('getShopNumber',function (number) {
+      $('#shopNum').text(number);
+    });
+    $.post('/getUser',function (user) {
+      if (user != "") {
+        $('#userName').text(user.userName);
+        $('#userName').attr('href','/user');
+      }
+    });
+  });
 </script>
 
 </body>

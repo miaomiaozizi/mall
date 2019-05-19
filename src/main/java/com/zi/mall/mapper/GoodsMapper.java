@@ -2,6 +2,8 @@ package com.zi.mall.mapper;
 
 import com.zi.mall.domain.Goods;
 import com.zi.mall.domain.GoodsExample;
+import com.zi.mall.vo.GoodsVo;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,9 +30,20 @@ public interface GoodsMapper {
 
     int updateByPrimaryKey(Goods record);
 
+    /**
+     * 查询热销
+     * @param sum
+     * @return
+     */
+
     List<Goods> selectHotGoods(Integer sum);
     /**
      * 查询新品
      */
     List<Goods> selectNewGoods(Integer sum);
+    /**
+     * 模糊查询商品列表
+     *
+     */
+    List<GoodsVo> selectGoodsList(GoodsVo goodsVo);
 }

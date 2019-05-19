@@ -13,32 +13,32 @@
   <div class="layui-container">
     <div class="house-nav">
       <span class="layui-breadcrumb" lay-separator="|">
-        <a href="login.html">登录</a>
-        <a href="">我的订单</a>
+        <a href="/toLogin" id="userName">登录</a>
+         <a href="/user">我的订单</a>
         <a href="">在线客服</a>
       </span>
       <span class="layui-breadcrumb house-breadcrumb-icon" lay-separator=" ">
         <a id="search"><i class="layui-icon layui-icon-house-find"></i></a>
         <a href="login.html"><i class="layui-icon layui-icon-username"></i></a>
-        <a href="../static/html/usershop.html"><i class="layui-icon layui-icon-house-shop"></i></a>
+        <a href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i></a>
       </span>
     </div> 
     <div class="house-banner layui-form">
-      <a class="banner" href="index.html">
+      <a class="banner" href="/">
         <img src="/res/static/img/banner.png" alt="家居商城">
       </a>
       <div class="layui-input-inline">
         <input type="text" placeholder="搜索好物" class="layui-input"><i class="layui-icon layui-icon-house-find"></i>
       </div>
-      <a class="shop" href="../static/html/usershop.html"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge">1</span></a>
+      <a class="shop" href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge" id="shopNum">1</span></a>
     </div>
     <ul class="layui-nav close">
-      <li class="layui-nav-item layui-this"><a href="index.html">首页</a></li>
-      <li class="layui-nav-item"><a href="/resources/static/html/list.html">居家用品</a></li>
-      <li class="layui-nav-item"><a href="/resources/static/html/list.html">小家电</a></li>
-      <li class="layui-nav-item"><a href="/resources/static/html/list.html">洗护</a></li>
-      <li class="layui-nav-item"><a href="/resources/static/html/list.html">厨具</a></li>
-      <li class="layui-nav-item"><a href="/resources/static/html/list.html">日用品</a></li>
+      <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=1">居家用品</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=2">小家电</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=3">洗护</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=4">厨具</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=5">日用品</a></li>
     </ul>
     <button id="switch">
       <span></span><span class="second"></span><span class="third"></span>
@@ -92,13 +92,8 @@
   <div class="hot-sell">
     <p class="house-title">热销推荐<a href="">更多优品  &gt;</a></p>
     <div class="layui-row layui-col-space20">
-      <!--<tr th:each="prod : ${prods}">
-        <td th:text="${prod.name}">Onions</td>
-        <td th:text="${prod.price}">2.41</td>
-        <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>
-      </tr>-->
-      <a th:each="goods : ${hotGoods}" href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img4.jpg" th:src="${goods.goodsImg}"></div>
+      <a th:each="goods : ${hotGoods}" href="/toDetail?goodsId=" th:href="'/toDetail?id='+${goods.id}" class="layui-col-xs3 text">
+        <div><img src="/res/static/img/home_img4.jpg" th:src="'/showImage?path='+${goods.goodsImg}"></div>
         <p th:text="${goods.goodsName}">一盏好看的台灯</p>
         <p class="price" th:text="'￥'+${goods.shopPrice}">￥200</p>
       </a>
@@ -108,26 +103,11 @@
     <p class="house-title">新品推荐<a href="">更多优品  &gt;</a></p>
     <div class="layui-row layui-col-space20">
 
-      <a th:each="goods:${newGoods}" href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img8.jpg" th:src="${goods.goodsImg}"></div>
+      <a th:each="goods:${newGoods}" href="detail.html" th:href="'/toDetail?id='+${goods.id}" class="layui-col-xs3 text">
+        <div><img src="/res/static/img/home_img8.jpg" th:src="'/showImage?path='+${goods.goodsImg}"></div>
         <p th:text="${goods.goodsName}">蒂芙尼蓝化妆刷</p>
         <p class="price" th:text="'￥'+${goods.shopPrice}">￥200</p>
       </a>
-      <!--<a href="../static/html/detail.html" class="layui-col-xs3 text">-->
-        <!--<div><img src="/res/static/img/home_img9.jpg"></div>-->
-        <!--<p>玻璃洗漱三件套</p>-->
-        <!--<p class="price">￥200</p>-->
-      <!--</a>-->
-      <!--<a href="../static/html/detail.html" class="layui-col-xs3 text">-->
-        <!--<div><img src="/res/static/img/home_img10.jpg"></div>-->
-        <!--<p>清洁力强劲浴球</p>-->
-        <!--<p class="price">￥200</p>-->
-      <!--</a>-->
-      <!--<a href="../static/html/detail.html" class="layui-col-xs3 text">-->
-        <!--<div><img src="/res/static/img/home_img11.jpg"></div>-->
-        <!--<p>瘦脸仪</p>-->
-        <!--<p class="price">￥200</p>-->
-      <!--</a>-->
     </div>
   </div>
 </div>
@@ -138,82 +118,42 @@
   <div class="hot-sell">
     <p class="house-title">猜您喜欢<a href="">更多新品  &gt;</a></p>
     <div class="layui-row layui-col-space20">
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img12.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
       </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img13.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
       </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img14.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
       </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img15.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
       </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img12.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
       </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img13.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
       </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img14.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
       </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img15.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img12.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img13.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img14.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img15.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img12.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img13.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
-        <div><img src="/res/static/img/home_img14.jpg"></div>
-        <p>森系小清新四件套</p>
-        <p class="price">￥200</p>
-      </a>
-      <a href="../static/html/detail.html" class="layui-col-xs3 text">
+      <a href="detail.html" class="layui-col-xs3 text">
         <div><img src="/res/static/img/home_img15.jpg"></div>
         <p>森系小清新四件套</p>
         <p class="price">￥200</p>
@@ -224,22 +164,22 @@
 
 <div class="layui-fulid" id="champ">
   <div class="layui-row">
-    <a href="../static/html/list.html" class="layui-col-xs3">
+    <a href="list.html" class="layui-col-xs3">
       <img src="/res/static/img/home_img16.jpg">
     </a>
-    <a href="../static/html/list.html" class="layui-col-xs6">
+    <a href="list.html" class="layui-col-xs6">
       <img src="/res/static/img/home_img17.jpg">
     </a>
-    <a href="../static/html/list.html" class="layui-col-xs3">
+    <a href="list.html" class="layui-col-xs3">
       <img src="/res/static/img/home_img20.jpg">
     </a>
-    <a href="../static/html/list.html" class="layui-col-xs3">
+    <a href="list.html" class="layui-col-xs3">
       <img src="/res/static/img/home_img18.jpg">
     </a>
-    <a href="../static/html/list.html" class="layui-col-xs3">
+    <a href="list.html" class="layui-col-xs3">
       <img src="/res/static/img/home_img19.jpg">
     </a>
-    <a href="../static/html/list.html" class="layui-col-xs3">
+    <a href="list.html" class="layui-col-xs3">
       <img src="/res/static/img/home_img21.jpg">
     </a>
   </div> 
@@ -255,11 +195,11 @@
     </div>
     <div class="about">
       <span class="layui-breadcrumb" lay-separator="|">
-        <a href="../static/html/about.html">关于我们</a>
-        <a href="../static/html/about.html">帮助中心</a>
-        <a href="../static/html/about.html">售后服务</a>
-        <a href="../static/html/about.html">配送服务</a>
-        <a href="../static/html/about.html">关于货源</a>
+        <a href="/html/about.html">关于我们</a>
+        <a href="/html/about.html">帮助中心</a>
+        <a href="/html/about.html">售后服务</a>
+        <a href="/html/about.html">配送服务</a>
+        <a href="/html/about.html">关于货源</a>
       </span>
       <p>家居商城版权所有 &copy; 2012-2020</p>
     </div>   
@@ -275,7 +215,20 @@
 <script>
   layui.config({
     base: '../res/static/js/' 
-  }).use('house'); 
+  }).use('house');
+  layui.use(['jquery'],function () {
+    $=layui.jquery;
+    //获取购物车初始数量
+    $.post('getShopNumber',function (number) {
+      $('#shopNum').text(number);
+    });
+    $.post('/getUser',function (user) {
+      if (user != "") {
+        $('#userName').text(user.userName);
+        $('#userName').attr('href','/user');
+      }
+    });
+  });
 </script>
 
 </body>

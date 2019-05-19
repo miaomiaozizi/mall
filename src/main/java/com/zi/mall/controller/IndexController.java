@@ -12,6 +12,7 @@
 package com.zi.mall.controller;
 
 import com.zi.mall.domain.Goods;
+import com.zi.mall.domain.User;
 import com.zi.mall.service.GoodsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 跳转首页控制器
@@ -48,6 +51,19 @@ public class IndexController {
         List<Goods> newGoods = goodsService.getNewGoods(4);
         model.addAttribute("hotGoods",hotGoods);
         model.addAttribute("newGoods",newGoods);
-        return "index";
+        return "protal/index";
+    }
+    @RequestMapping("/admin")
+    public String toAdminIndex(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user==null){
+            return "admin/login";
+        }else {
+            if ("admin".equals(user.getRole())){
+                return "admin/index";
+            }
+            return "admin/login";
+        }
+
     }
 }

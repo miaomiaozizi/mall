@@ -27,6 +27,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-    //根据用户名与密码查询用户
+    /**
+     * 根据用户名与密码查询用户
+     */
     User selectByUserNameAndPassword(User user);
 }

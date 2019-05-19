@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>创建支付订单页面</title>
+</head>
+<body>
+<form action="/toPay" mathod="post" id="payForm">
+    <input type="hidden" name="orderid" th:value="${payVo.orderid}">
+    <input type="hidden" name="orderName" th:value="${payVo.orderName}">
+    <input type="hidden" name="money" th:value="${payVo.money}">
+    <input type="hidden" name="goodsDesc" th:value="${payVo.goodsDesc}">
+</form>
+<script src="/res/layui/layui.js"></script>
+<script>
+layui.use(['jquery'],function () {
+    $=layui.jquery;
+    $('#payForm').submit();
+});
+</script>
+</body>
+</html>

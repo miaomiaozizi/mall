@@ -13,32 +13,32 @@
   <div class="layui-container">
     <div class="house-nav">
       <span class="layui-breadcrumb" lay-separator="|">
-        <a href="login.html">登录</a>
-        <a href="">我的订单</a>
+        <a href="/toLogin">登录</a>
+         <a href="/user">我的订单</a>
         <a href="">在线客服</a>
       </span>
       <span class="layui-breadcrumb house-breadcrumb-icon" lay-separator=" ">
         <a id="search"><i class="layui-icon layui-icon-house-find"></i></a>
         <a href="login.html"><i class="layui-icon layui-icon-username"></i></a>
-        <a href="../static/html/usershop.html"><i class="layui-icon layui-icon-house-shop"></i></a>
+        <a href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i></a>
       </span>
     </div>
     <div class="house-banner layui-form">
-      <a class="banner" href="index.html">
+      <a class="banner" href="/">
         <img src="/res/static/img/banner.png" alt="家居商城">
       </a>
       <div class="layui-input-inline">
         <input type="text" placeholder="搜索好物" class="layui-input"><i class="layui-icon layui-icon-house-find"></i>
       </div>
-      <a class="shop" href="../static/html/usershop.html"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge">1</span></a>
+      <a class="shop" href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge">1</span></a>
     </div>
     <ul class="layui-nav close">
-      <li class="layui-nav-item layui-this"><a href="index.html">首页</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">居家用品</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">小家电</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">洗护</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">厨具</a></li>
-      <li class="layui-nav-item"><a href="../static/html/list.html">日用品</a></li>
+      <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=1">居家用品</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=2">小家电</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=3">洗护</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=4">厨具</a></li>
+      <li class="layui-nav-item"><a href="/list?catId=5">日用品</a></li>
     </ul>
     <button id="switch">
       <span></span><span class="second"></span><span class="third"></span>
@@ -57,10 +57,6 @@
       <i class="layui-icon layui-icon-set-fill"></i>
       <input type="text" required name="password" lay-verify="required" placeholder="请输入密码" class="layui-input">
    </div>
-    <!--<div class="layui-input-block getCode">-->
-      <!--<input type="text" required lay-verify="required" placeholder="请输入短信验证码" class="layui-input">-->
-      <!--<button class="layui-btn">获取验证码</button>-->
-    <!--</div>-->
     <button class="layui-btn" lay-submit lay-filter="user-login">登录</button>
   </form>
 </div>
@@ -75,11 +71,11 @@
     </div>
     <div class="about">
       <span class="layui-breadcrumb" lay-separator="|">
-        <a href="../static/html/about.html">关于我们</a>
-        <a href="../static/html/about.html">帮助中心</a>
-        <a href="../static/html/about.html">售后服务</a>
-        <a href="../static/html/about.html">配送服务</a>
-        <a href="../static/html/about.html">关于货源</a>
+        <a href="/html/about.html">关于我们</a>
+        <a href="/html/about.html">帮助中心</a>
+        <a href="/html/about.html">售后服务</a>
+        <a href="/html/about.html">配送服务</a>
+        <a href="/html/about.html">关于货源</a>
       </span>
       <p>家居商城版权所有 &copy; 2012-2020</p>
     </div>

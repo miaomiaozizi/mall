@@ -6,6 +6,15 @@ spring:
     url: jdbc:mysql://39.108.175.200:3306/mall?useUnicode=true&characterEncoding=utf-8
   thymeleaf:
     cache: false
+  servlet:
+    multipart:
+      max-file-size: 20971520
 mybatis:
   mapper-locations:
     - classpath:mapper/*.xml
+upload:
+  path: D:/upload
+fdfs:
+  connect-timeout: 601
+  tracker-list:
+    - 39.108.175.200:22122

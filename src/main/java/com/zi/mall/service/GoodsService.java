@@ -12,6 +12,8 @@ package com.zi.mall.service;
 
 
 import com.zi.mall.domain.Goods;
+import com.zi.mall.model.LayuiTableModel;
+import com.zi.mall.vo.GoodsVo;
 
 import java.util.List;
 
@@ -30,5 +32,30 @@ public interface GoodsService {
      * 查询新品
      */
     List<Goods> getNewGoods(Integer sum);
+    /**
+     * 查询商品
+     */
+    GoodsVo queryGoods(Integer id);
+    /**
+     * 根据商品分类id查询商品
+     */
+    List<Goods> queryGoodsByCatId(Integer page,Integer pageSize,Integer catId);
+    /**
+     * 分页加模糊查询商品列表
+     */
+    LayuiTableModel<GoodsVo> queryGoods(GoodsVo goodsVo);
+    /**
+     * 添加商品
+     */
+    void addGoods(Goods goods);
 
+    void deleteGoods(Integer goodsId);
+
+    void updateGoods(Goods goods);
+    /**
+     * 根据商品id集合查询商品
+     */
+    List<Goods> queryByIdList(List<Integer> ids);
+
+    List<Goods> queryGoodsByGoodsName(int page, int pageSize, String goodsName);
 }

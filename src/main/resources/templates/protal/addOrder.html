@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>家居商城</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../res/layui/css/layui.css">
+    <link rel="stylesheet" href="../res/static/css/index.css">
+    <style type="text/css">
+        table{font-size:12px;}
+        table{
+            table-layout:fixed;
+            empty-cells:show;
+            border-collapse: collapse;
+            margin:0 auto;
+        }
+        td{height:30px;}
+        h1, h2, h3{
+            font-size:12px;
+            margin:0;
+            padding:0;
+        }
+        .table{
+            border:1px solid #cad9ea;
+            color:#666;
+        }
+        .table th{
+            background-repeat:repeat-x;
+            height:30px;
+        }
+        .table td, .table th{
+            border:1px solid #cad9ea;
+            padding:0 1em 0;
+        }
+        .table tr.alter{
+            background-color:#f5fafe;
+        }
+    </style>
+</head>
+<body>
+
+<div class="house-header">
+    <div class="layui-container">
+        <div class="house-nav">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="/toLogin" id="userName">登录</a>
+         <a href="/user">我的订单</a>
+        <a href="">在线客服</a>
+      </span>
+            <span class="layui-breadcrumb house-breadcrumb-icon" lay-separator=" ">
+        <a id="search"><i class="layui-icon layui-icon-house-find"></i></a>
+        <a href="../../templates/protal/login.html"><i
+                class="layui-icon layui-icon-username"></i></a>
+        <a href="/toUserShop"><i class="layui-icon layui-icon-house-shop"></i></a>
+      </span>
+        </div>
+        <div class="house-banner layui-form">
+            <a class="banner" href="../../templates/protal//">
+                <img src="../res/static/img/banner.png" alt="家居商城">
+            </a>
+            <div class="layui-input-inline">
+                <input type="text" placeholder="搜索好物" class="layui-input"><i
+                    class="layui-icon layui-icon-house-find"></i>
+            </div>
+            <a class="shop" href="/toUserShop"><i
+                    class="layui-icon layui-icon-house-shop"></i><span class="layui-badge" id="shopNum">1</span></a>
+        </div>
+        <ul class="layui-nav close">
+            <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+            <li class="layui-nav-item"><a href="/list?catId=1">居家用品</a></li>
+            <li class="layui-nav-item"><a href="/list?catId=2">小家电</a></li>
+            <li class="layui-nav-item"><a href="/list?catId=3">洗护</a></li>
+            <li class="layui-nav-item"><a href="/list?catId=4">厨具</a></li>
+            <li class="layui-nav-item"><a href="/list?catId=5">日用品</a></li>
+        </ul>
+        <button id="switch">
+            <span></span><span class="second"></span><span class="third"></span>
+        </button>
+    </div>
+</div>
+<form class="layui-form" id="orderForm" style="margin-left: 20px;margin-top: 10px;width: 75%;margin-left: auto;margin-right: auto;border: 2px #4E5465;" action="/orderConfirm">
+    <h1>选择收货地址</h1>
+    <div class="layui-form-item">
+        <div class="layui-input-inline" style="margin-left: 60px">
+            <div th:each="useradd:${userAdds}"  style="width: 700px;font-size: 16px">
+            <input type="radio" name="addressId"  th:value="${useradd.id}"  th:text="${useradd.getAddress()}+' ('+${useradd.getUsername()}+' 收 ) '+${useradd.getTel()}"
+                    th:checked="${useradd.getIsDefault()==1?'true':'false'}" ><br/>
+            </div>
+
+        </div>
+    </div>
+    <h1>确认订单信息</h1>
+    <div style="margin: 10px">
+        <table class="table" width="90%">
+            <tr>
+                <th>商品信息</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+            <tr th:each="goodsVo:${order.getGoodslist()}">
+                <input type="hidden" th:name="'goodslist['+${goodsVoStat.index}+'].id'" th:value="${goodsVo.id}">
+
+                <td  align="center" valign="middle">
+                    <img th:src="'/showImage?path='+${goodsVo.getGoodsImg()}" style="margin: 5px" height="50px" width="50px"/>
+                    <span th:text="'   '+${goodsVo.getGoodsName()}"></span>
+                </td>
+                <td align="center" valign="middle" th:text="${goodsVo.getShopPrice()}"></td>
+                <td align="center" valign="middle" th:text="${goodsVo.getNumber()}"></td>
+                <input type="hidden" th:name="'goodslist['+${goodsVoStat.index}+'].number'" th:value="${goodsVo.number}">
+                <td align="center" valign="middle" th:text="${goodsVo.getTotalPrice()}"></td>
+                <input type="hidden" th:name="'goodslist['+${goodsVoStat.index}+'].totalPrice'" th:value="${goodsVo.totalPrice}">
+
+            </tr>
+        </table>
+        <div style="width: auto;text-align: right">
+            <span>总价：</span>
+            <span th:text="${order.price}"></span>
+            <input type="hidden" name="price" th:value="${order.price}">
+            <button type="button" class="layui-btn layui-btn-danger" style="margin-top: 20px;text-align: right;" id="subBut">提交订单</button>
+        </div>
+    </div>
+
+</form>
+<div>
+
+</div>
+
+<div class="house-footer">
+    <div class="layui-container">
+        <div class="intro">
+                <span class="first"><i
+                        class="layui-icon layui-icon-house-shield"></i>7天无理由退换货</span>
+            <span class="second"><i class="layui-icon layui-icon-house-car"></i>满99元全场包邮</span>
+            <span class="third"><i
+                    class="layui-icon layui-icon-house-diamond"></i>100%品质保证</span>
+            <span class="last"><i
+                    class="layui-icon layui-icon-house-tel"></i>客服400-2888-966</span>
+        </div>
+        <div class="about">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="/html/about.html">关于我们</a>
+        <a href="/html/about.html">帮助中心</a>
+        <a href="/html/about.html">售后服务</a>
+        <a href="/html/about.html">配送服务</a>
+        <a href="/html/about.html">关于货源</a>
+      </span>
+            <p>家居商城版权所有 &copy; 2012-2020</p>
+        </div>
+    </div>
+</div>
+
+<script src="../res/layui/layui.js"></script>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>
+    layui.config({
+        base: '../res/static/js/'
+    }).use('house');
+    layui.use(['form','jquery'], function () {
+        var form = layui.form;
+        var $=layui.jquery;
+        //获取购物车初始数量
+        $.post('getShopNumber',function (number) {
+            $('#shopNum').text(number);
+        });
+        $.post('/getUser',function (user) {
+            if (user != "") {
+                $('#userName').text(user.userName);
+                $('#userName').attr('href','/user');
+            }
+        });
+        $('#subBut').click(function () {
+            $('#orderForm').submit();
+        });
+    });
+</script>
+
+</body>
+</html>
